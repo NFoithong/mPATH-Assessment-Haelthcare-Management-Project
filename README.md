@@ -1,5 +1,4 @@
 ﻿# Healthcare Management Project - mPath Assessment
-
 # Project Overview: 
 Develop a healthcare-focused web application using .NET Core 8, Angular 18, and Entity Framework core 8 to manage patient recommendations. 
 The system should allow users to log in, browse a list of patients, and view recommendations such as allergy checks and screenings.
