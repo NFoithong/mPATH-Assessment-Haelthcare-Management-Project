@@ -1,1 +1,1 @@
-# mPATH-Assessment-Haelthcare-Management-Project
+# mPATH-Assessment-Healthcare-Management-Project
