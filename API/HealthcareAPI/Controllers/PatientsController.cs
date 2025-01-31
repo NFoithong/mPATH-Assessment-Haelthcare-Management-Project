@@ -34,4 +34,13 @@
             return CreatedAtAction(nameof(GetPatient), new { id = patient.PatientId }, patient);
         }
     }
-}
+
+    [Authorize(Roles = "Admin,HealthcareProfessional")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Patient>>> GetPatients()
+        {
+            return await _context.Patients.Include(p => p.Recommendations).ToListAsync();
+        }
+    }
+
+
