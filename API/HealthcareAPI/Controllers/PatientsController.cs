@@ -1,46 +1,27 @@
-﻿namespace HealthcareAPI.Controllers
+[Route("api/[controller]")]
+[ApiController]
+public class PatientsController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class PatientController : ControllerBase
+    private readonly HealthcareContext _context;
+
+    public PatientsController(HealthcareContext context)
     {
-        private readonly HealthcareContext _context;
-
-        public PatientController(HealthcareContext context)
-        {
-            _context = context;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Patient>>> GetPatients()
-        {
-            return await _context.Patients.Include(p => p.Recommendations).ToListAsync();
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Patient>> GetPatient(int id)
-        {
-            var patient = await _context.Patients.Include(p => p.Recommendations)
-                                                 .FirstOrDefaultAsync(p => p.PatientId == id);
-            if (patient == null) return NotFound();
-            return patient;
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<Patient>> AddPatient(Patient patient)
-        {
-            _context.Patients.Add(patient);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetPatient), new { id = patient.PatientId }, patient);
-        }
+        _context = context;
     }
 
-    [Authorize(Roles = "Admin,HealthcareProfessional")]
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Patient>>> GetPatients()
-        {
-            return await _context.Patients.Include(p => p.Recommendations).ToListAsync();
-        }
+    [HttpGet]
+    public IActionResult GetPatients([FromQuery] string search = "")
+    {
+        var patients = _context.Patients.Where(p => p.Name.Contains(search)).ToList();
+        return Ok(patients);
     }
 
+    [HttpGet("{id}")]
+    public IActionResult GetPatient(int id)
+    {
+        var patient = _context.Patients.FirstOrDefault(p => p.Id == id);
+        if (patient == null) return NotFound();
 
+        return Ok(patient);
+    }
+}
