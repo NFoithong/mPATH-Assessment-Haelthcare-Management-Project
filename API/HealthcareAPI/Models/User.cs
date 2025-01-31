@@ -5,6 +5,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace HealthcareAPI.Models
 {
@@ -25,5 +26,11 @@ namespace HealthcareAPI.Models
         // Audit Fields
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
+    } 
+    
+    public class User : IdentityUser
+    {
+        public string Role { get; set; }  // Admin, HealthcareProfessional
     }
+
 }

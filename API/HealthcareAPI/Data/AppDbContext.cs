@@ -12,4 +12,5 @@ namespace HealthcareAPI.Data
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Recommendation> Recommendations { get; set; }
     }
+
 }
