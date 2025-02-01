@@ -1,0 +1,16 @@
+<mat-card *ngIf="patientDetails">
+  <mat-card-header>
+    <mat-card-title>{{ patientDetails.name }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p><strong>Date of Birth:</strong> {{ patientDetails.dob | date }}</p>
+    <p><strong>Gender:</strong> {{ patientDetails.gender }}</p>
+    <p><strong>Medical History:</strong> {{ patientDetails.medicalHistory || 'Not available' }}</p>
+
+    <mat-list>
+      <mat-list-item *ngFor="let recommendation of patientDetails.recommendations">
+        <span>{{ recommendation.type }} - {{ recommendation.status }}</span>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
